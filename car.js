@@ -31,17 +31,26 @@ let listaCarro = [
     }
 ]
 
-listaCarro.map((car) => {
+listaCarro.map((car, posicao) => {
     let cardCarro = document.getElementById("cards")
     cardCarro.innerHTML += `
         <div class="col-md-4">
-            <div class="card">
+            <div class="card m-2">
                 <img src="${car.img}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">${car.nome}</h5>
-                  <a href="#" class="btn btn-secondary"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" class="btn btn-secondary" onclick="zoomImg('${posicao}')"><i class="bi bi-zoom-in"></i></a>
                 </div>
               </div>
         </div>
     `
 })
+
+function zoomImg(posicao) {
+    let carroSelecionado = listaCarro[posicao]
+    document.getElementById("nomeCarro").innerHTML = carroSelecionado.nome
+    document.getElementById("descricaoCarro").innerHTML = carroSelecionado.descricao
+    document.getElementById("imgModal").src = carroSelecionado.img
+    
+    new bootstrap.Modal('#zoomImg').show()
+}
